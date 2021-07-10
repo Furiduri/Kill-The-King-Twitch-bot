@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Kill The King - Vue / HTML game</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div :class="{'pressed': pressed}" id='app'>
+  <audio controls='' crossorigin='anonymous' style='display: none;'>
+    <source src='./assets/ktkBgAudio.mp3'  type='audio/mp3'>
+  </audio>
+  <div class='game'>
+    <div :class="{'show': gameover}" class='game_lose'>
+      <div class='inner'>
+        <h1>F en el chat!</h1>
+        <p>Mas suerte para la proxima 😞 </p>
+        <p>
+          Creado por
+          <a href='https://www.codepen.io/jcoulterdesign'>Jaime Coulter</a>
+          Adaptado por <a href='https://www.twitch.tv/furiduri'>Furiduri</a>
+        </p>
+      </div>
+    </div>
+    <div :class="{'show': gamewin}" class='game_win'>
+      <div class='inner'>
+        <h1>Triunfo el chat!</h1>
+        <p>El chat es invencible
+          <img alt="GlitchNRG" class="chat-image chat-line__message--emote" src="./assets/GlitchNRG.png">          
+        </p>
+        <p>
+          Creado por
+          <a href='https://www.codepen.io/jcoulterdesign'>Jaime Coulter</a>
+          Adaptado por <a href='https://www.twitch.tv/furiduri'>Furiduri</a>
+        </p>
+      </div>
+    </div>
+    <div :class="{'gamestarted': gameStarted}" class='game_intro'>
+      <div :class="{'gamestarted': introClicked}" class='game_intro__inner start'>
+        <img src='./assets/ktkLogo.png'>
+        <br>
+        <p @click='introClicked = !introClicked' class='begin'>Iniciar Juego - !start</p>
+      </div>
+      <div :class="{'gamestarted': !introClicked}" class='game_intro__inner end'>
+        <div class='dialogue'>
+          <span>Instrucciones</span>
+          <p>Tienen {{ minutes }} m {{ seconds  }} s para ganar. <br>
+            Usen el comando [ !punch ] para atacar. <br>
+            <img width="30px" alt="SabaPing" class="chat-image chat-line__message--emote" src="./assets/SabaPing.png">
+          <img alt="BlackLivesMatter" class="chat-image chat-line__message--emote" src="./assets/BlackLivesMatter.png"> <br>
+            Al final de cada fase, vote por la mejora que mas le guste usando [ !up numero ] <br>
+            Envien {{ minbits }} bits para avanzar mas rapido con las mejoras!! <br>
+            <label @click='introClicked = !introClicked, startGame()' class='continue'>Todo listo! - !start</label>
+          </p>
+          
+        </div>
+        <img class='king' src='./assets/kingTrost.png'>
+      </div>
+    </div>
+    <div class='game_inner'>
+      <div :class="{'active': tooltip}" class='game_inner__tooltip'>
+        <div class='smash'>Usa el comando [ <b> !punch </b> ] para atacar!! o
+          <img width="30px" alt="SabaPing" class="chat-image chat-line__message--emote" src="./assets/SabaPing.png">
+          <img alt="BlackLivesMatter" class="chat-image chat-line__message--emote" src="./assets/BlackLivesMatter.png">
+        </div>
+      </div>
+      <div class='game_inner__footer'>
+        <div class='madeby'>
+            Creado por
+            <a href='https://www.codepen.io/jcoulterdesign'>Jaime Coulter</a>
+            Adaptado por <a href='https://www.twitch.tv/furiduri'>Furiduri</a>
+          </p>
+        </div>
+        <div class='resources'>
+          <div class='ui_xp'>
+            <img src='./assets/ktkXpIxon.png'>
+            {{ xp }}xp
+          </div>
+        </div>
+      </div>
+      <div class='game_inner__left'>
+        <div class='buttons'>
+          <img :class="{'off': !audioController.sfxOn}" @click='audioController.sfxOn = !audioController.sfxOn' src='./assets/ktkSfxButton.png'>
+          <img :class="{'off': muteBg}" @click='toggleBg()' src='./assets/ktkBgButton.png'>
+        </div>
+        <div class='logo'>
+          <img src='./assets/ktkLogo.png'>
+        </div>
+        <div class='timer'>
+          <img src='./assets/ktkTimerBg.png'>
+          <div class='timer_inner'>
+            <div class='minutes'>
+              {{ minutes }}
+            </div>
+            <div class='seconds'>
+              {{ seconds }}
+            </div>
+            <div class='ms'>
+              {{ ms }}
+            </div>
+          </div>
+        </div>
+        <div class='ui'>
+          <div class='ui_progress'>
+            <div class='ui_progress__stage'>
+              FASE {{ stage }}
+            </div>
+            <div class='ui_progress__bar'>
+              <div :style='{width: `${((500 / enemiesPerStage) * (enemiesDefeated + 1)) - ((500 / enemiesPerStage) / 2)}px`}' class='inner'></div>
+              <div class='outer'></div>
+            </div>
+            <div class='ui_progress__icons'>
+              <div :key='enemies' class='icon' v-for='(enemies, index) in enemiesPerStage'>
+                <div :class="{'complete': index &lt; enemiesDefeated, 'active': index == enemiesDefeated}" class='icon_bg'></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class='center'>
+          <div class='characters'>
+            <div :class="{'run': stageComplete}" class='player'>
+              <div class='stats'>                
+                <div class='ui_strength'>
+                  <img src='./assets/ktkStrengthIcon.png'>
+                  {{ strength }} STR
+                  <br>
+                </div>
+                <div class='ui_intelligence'>
+                  <img src='./assets/ktkKnowledgeIcon.png'>
+                  {{ intelligence }} INT
+                </div>
+                <div class='ui_speed'>
+                  <img src='./assets/ktkSpeedIcon.png'>
+                  {{ speed }} SPD
+                </div>
+                <div class='ui_bit'>
+                  <svg width="100%" height="100%" version="1.1" viewBox="0 0 20 20" x="0px" y="0px" class="ScIconSVG-sc-1bgeryd-1 cMQeyU"><path fill-rule="evenodd" clip-rule="evenodd" d="M3 12l7-10 7 10-7 6-7-6zm2.678-.338L10 5.487l4.322 6.173-.85.728L10 11l-3.473 1.39-.849-.729z"></path></svg>
+                  {{bits}} Mejoras c/Bits
+                </div>
+              </div>
+              <div :class="{'pressed': pressed}" class='player_sprite'></div>
+            </div>
+            <div :class="{'run': stageComplete}" class='enemy'>
+              <div :class="{'pressed': pressed, 'killed' : enemyKilled, 'boss' : boss}" :style='{filter: `hue-rotate(${80 * (stage - 1)}deg)`}' class='enemy_sprite'></div>
+              <div :class="{'pressed': pressed}" class='enemy_hit'>
+                {{ damage }}
+              </div>
+              <div :class="{'killed': enemyKilled}" class='enemy_xp'>
+                <img src='./assets/ktkXpIxon.png'>
+                {{ xpGained }}xp
+              </div>
+              <div class='enemy_health'>
+                <div class='enemy_health_stats'>
+                  <div class='name'>
+                    {{ enemy.name }}
+                  </div>
+                  <div class='level'>
+                    HP: {{ enemy.health }}
+                  </div>
+                </div>
+                <div :style='{width: `${100 * (enemy.health / enemy.initHealth)}%`}' class='enemy_health_inner'></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class='game_inner__right' v-if='shoppingPhase'>  
+        <h2>Habillidades, se compra cuando tenga {{minvotes}} votos!!</h2>     
+        <p>Gaste su experiencia en mejoras para el personaje!</p>
+        <div class='xp'>
+          <img src='./assets/ktkXpIxon.png'>
+          {{ xp }} xp
+        </div>
+        <div class='upgrades'>
+          <div :key='upgrades.name' class='upgrades_upgrade' v-for='(upgrade, index) in upgrades'>            
+            <div :class="{'max' : upgrade.level &gt; upgrade.maxLevel, 'available': upgrade.type == 'stat' ? xp &gt;= upgrade.cost : gold &gt;= upgrade.cost, 'bought': upgrade.bought}" @click='nBuy(index)' @mouseenter='audioController.play("hover")' class='upgrade'>
+              <div class='name'>{{ upgrade.names }} / Use !up {{ parseInt(index) + 1 }} [{{votes[index]}} / {{minvotes}}]</div>
+              <div class='description'>{{ upgrade.descriptions }}</div>
+              <div class='cost'>
+                Cost: {{ upgrade.cost }} {{ upgrade.type == "stat" ? 'xp' : 'gold' }}
+              </div>
+              <div class='effect'>
+                +{{ upgrade.type == "stat" ? upgrade.increment : upgrade.damage }} {{ upgrade.metric }}
+              </div>
+              <div class='level' v-if="upgrade.type == 'stat'">
+                Level: {{ upgrade.level }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div @click='exitShoppingPhase' class='nextPhase'>Vota para continuar!</div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.9/vue.js'></script>
+  <script src="./tmi.min.js"  type="text/javascript"></script>  
+  <script  src="./script.js"></script>  
+  <script src="./bot.js"></script>
+  <script src="./ComanRoll.js"></script>
+</body>
+</html>
