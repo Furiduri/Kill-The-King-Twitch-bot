@@ -12,7 +12,7 @@ Se debe usar `!start` para ver las instruciones, otro `!start` para iniciar el c
 
 ## Durante el combate
 
-Se debe usar los comandos `!punch` o `!a`, para atacar, tambien pueden atacar con los emojis ![BlackLivesMatter](./assets/BlackLivesMatter.png "BlackLivesMatter") y  ![SabaPing](./assets/SabaPing.png "SabaPing")
+Se debe usar los comandos `!punch` o `!a`, para atacar, tambien pueden atacar con los emojis ![BlacklivesMatter](./assets/BlacklivesMatter.png "BlacklivesMatter") y  ![SabaPing](./assets/SabaPing.png "SabaPing")
 
 <img src="./imgs/Combate.jpg" width="720">
 
@@ -35,7 +35,7 @@ Para comprar la mejora se debe usar el comando `!up [1,2,3]` (numero de la mejor
 ## Chat
 `!punch` - Golpear.
 
-**Emojis**  ![BlackLivesMatter](./assets/BlackLivesMatter.png "BlackLivesMatter") y  ![SabaPing](./assets/SabaPing.png "SabaPing")  - Golpear.
+**Emojis**  ![BlacklivesMatter](./assets/BlacklivesMatter.png "BlacklivesMatter") y  ![SabaPing](./assets/SabaPing.png "SabaPing")  - Golpear.
 
 `!a` - Golpear.
 
@@ -74,9 +74,9 @@ Puedes abrir el archivo `index.html` en cualquier navegador, o abrirlo en el OBS
 
 El juego usado como base fue creado por **Jamie Coulter** puedes encontrar el juego sin modificaciones en [CodePen.io](https://codepen.io/jcoulterdesign/pen/MWeZWxQ).
 
-La idea de adaptarlo para jugar con el chat de Twitch, fue de [Hey_Samwell](https://www.twitch.tv/hey_samwell).
+La idea de adaptarlo para juegar con el chat de Twitch, fue de [Hey_Samwell](https://www.twitch.tv/hey_samwell).
 
-y claro quien se puso las pilas para adaptarlo fui yo [Furiduri!](https://www.twitch.tv/furiduri) , pueden buscarme en [Twitch](https://www.twitch.tv/furiduri) estare trabajando en mas cosillas de este estilo en directo.
+y claro quien se puso las pilas para adaptarlo yo [Furiduri!](https://www.twitch.tv/furiduri) , pueden buscarme en [Twitch](https://www.twitch.tv/furiduri) estare trabajando en mas cosillas de este estilo en directo.
 
 [
 ![Icono Twitch - Furiduri](https://static-cdn.jtvnw.net/jtv_user_pictures/cf534da1-f7e3-4253-ab56-9b24f73a702a-profile_image-70x70.png "Twitch")
