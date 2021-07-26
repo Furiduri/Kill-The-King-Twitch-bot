@@ -12,7 +12,7 @@ Se debe usar `!start` para ver las instruciones, otro `!start` para iniciar el c
 
 ## Durante el combate
 
-Se debe usar los comandos `!punch` o `!a`, para atacar, tambien pueden atacar con los emojis ![BlacklivesMatter](./assets/BlacklivesMatter.png "BlacklivesMatter") y  ![SabaPing](./assets/SabaPing.png "SabaPing")
+Se debe usar los comandos `!punch` o `!a`, para atacar, tambien pueden atacar con los emojis ![BlackLivesMatter](./assets/BlackLivesMatter.png "BlackLivesMatter") y  ![SabaPing](./assets/SabaPing.png "SabaPing")
 
 <img src="./imgs/Combate.jpg" width="720">
 
@@ -35,7 +35,7 @@ Para comprar la mejora se debe usar el comando `!up [1,2,3]` (numero de la mejor
 ## Chat
 `!punch` - Golpear.
 
-**Emojis**  ![BlacklivesMatter](./assets/BlacklivesMatter.png "BlacklivesMatter") y  ![SabaPing](./assets/SabaPing.png "SabaPing")  - Golpear.
+**Emojis**  ![BlackLivesMatter](./assets/BlackLivesMatter.png "BlackLivesMatter") y  ![SabaPing](./assets/SabaPing.png "SabaPing")  - Golpear.
 
 `!a` - Golpear.
 
