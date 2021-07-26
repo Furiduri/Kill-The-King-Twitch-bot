@@ -1,8 +1,8 @@
 const config = {
   minbits: 10,
-  minvotes: 5,
-  minutos: 5,
-  finalStage: 5,
+  minvotes: 3,
+  minutos: 15,
+  finalStage: 4,
   enemyNames: [
     'JACOB DANGERS',
     'MILEON MASON',
@@ -254,6 +254,7 @@ const app = new Vue({
       gameStarted: false,
       muteBg: false, 
       boss: false,
+      mensageBoos: false,
       damage: 1,
       weapon: 'Espada del Heroe',
       weaponDamage: 1,

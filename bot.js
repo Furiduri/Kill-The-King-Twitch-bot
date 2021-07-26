@@ -3,14 +3,14 @@
 const opts = {
     identity: {
     //Usuario de Twitch o de la cuenta de la cual vas a comentar
-      username: "Holi_bot",
+      username: "TuUsuario",
       //Obtener la contraseña de aqui  https://twitchapps.com/tmi/
-      password: "oauth:sjanfjkasdkjakjkjdejefkjsfknk"
+      password: "oauth:password"
     },
     channels: [
         //Canales donde va estar escuchando el Chatbot.
         //El nombre de tu canal como aparece despues del https://www.twitch.tv/{el nombre}
-      "furiduri",
+      "TuCanal",
     ]
   };
   
@@ -65,8 +65,16 @@ const opts = {
     //Pon las funciones de los comandos a habilitar
     //rollDice(target, context, commandName);
     if(commandName === "!punch" || commandName === "blacklivesmatter"  || commandName === "!a"|| commandName === "sabaping"){
-        if(!app.shoppingPhase)
+        if(!app.shoppingPhase){
           app.punch();
+          if(app.enemiesDefeated == app.enemiesPerStage -1 && app.stage == app.finalStage && !app.mensageBoos){
+            client.say(target, `Woow llegaron al Jefe final, pero lo lograran con solo ${app.minutes} : ${app.seconds} minutos?`);
+            app.mensageBoos = true;
+          } 
+        }
+        else if(app.gameStarted && app.shoppingPhase){
+          client.say(target, `Hora de votar con !up [1,2,3] `);
+        }
     }
 
     if(/^!up [1-3]/.test(commandName) ){
@@ -100,6 +108,7 @@ const opts = {
         if(context.badges.broadcaster){
           if(app.introClicked){
             app.startGame();
+            client.say(target, `Hora de !punch BlackLivesMatter SabaPing`);
             app.introClicked = false;
           }else{
             app.introClicked = true;
