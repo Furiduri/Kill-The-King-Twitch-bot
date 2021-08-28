@@ -42,7 +42,10 @@ Para comprar la mejora se debe usar el comando `!up [1,2,3]` (numero de la mejor
 `!up [1,2,3]` - Votar por una mejora de las 3 mejoras.
 
 # Envios de bits (cheers)
- Al juntar una suma de [ `config.minbits` ], se consige una mejora al personaje de manera aleatoria.
+ Al juntar una suma de [ `config.minbits` ], se consige una mejora para el personaje de manera aleatoria.
+
+# Subcripciones, regalos de Subscripciones y Hosts.
+ Al recibir alguna Suscripción, ya sea comprada, prime, regalada o algun Hosteo; se consige una mejora para el personaje de manera aleatoria.
 
 # Como usarlo
 
@@ -65,10 +68,9 @@ Puedes abrir el archivo `index.html` en cualquier navegador, o abrirlo en el OBS
 
 ## Eso es todo?
 
-      Yep, eso es todo, una ves vista la pantalla de inicio del juego, ya podras usar los comandos en el chat, para poder interactuar con el juego.
+ Yep, eso es todo, una ves vista la pantalla de inicio del juego, ya podras usar los comandos en el chat, para poder interactuar con el juego.
 
-      Claro, tambien puedes interactuar con el teclado y raton si lo quieres probar sin comandos,
-      usando la tecla espacio para atacar.
+ Claro, tambien puedes interactuar con el teclado y raton si lo quieres probar sin comandos,usando la tecla espacio para atacar.
 
 # Creditos
 
